@@ -65,6 +65,20 @@ namespace BT
             Color color = new Color(_r / 255, _g / 255, _b / 255, _a);
             return color;
         }
+
+        public static RaycastHit2D GetFirstHit(Vector2 _start, Vector2 _dir, float _dist, Color _color)
+        {
+            RaycastHit2D[] hits = new RaycastHit2D[2];
+            Debug.DrawRay(_start, _dir, _color, _dist);
+            Physics2D.RaycastNonAlloc(_start, _dir, hits, _dist);
+
+            if (hits[1])
+            {
+                Debug.Log("I hit something!");
+            }
+
+            return hits[1];
+        }
     }
 
     public static class BaneMath
