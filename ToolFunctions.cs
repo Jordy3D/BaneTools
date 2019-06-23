@@ -66,18 +66,30 @@ namespace BT
       return color;
     }
 
+    /// <summary>
+    /// Multiplies the scale of the object provided in World Space.
+    /// </summary>
+    /// <param name="_object"></param>
+    /// <param name="_parent"></param>
+    /// <param name="_scale"></param>
     public static void SetWorldScale(Transform _object, Transform _parent, float _scale)
     {
       _object.SetParent(null);
       _object.localScale = BaneMath.MultipliedVector3(_object.localScale, _scale);
       _object.SetParent(_parent);
     }
-
-
   }
 
   public static class BaneRays
   {
+    /// <summary>
+    /// In order to avoid the annoyances of Unity's 2D raycast system, this acts like you would expect the 3D raycast to.
+    /// </summary>
+    /// <param name="_start"></param>
+    /// <param name="_dir"></param>
+    /// <param name="_dist"></param>
+    /// <param name="_color"></param>
+    /// <returns></returns>
     public static RaycastHit2D GetFirstHit(Vector2 _start, Vector2 _dir, float _dist, Color _color)
     {
       RaycastHit2D[] hits = new RaycastHit2D[2];
@@ -227,59 +239,135 @@ namespace BT
   public static class BaneMath
   {
     public static Vector2 centre = new Vector2(.5f, .5f);
+    /// <summary>
+    /// Centre of the screen. Useful for First Person situations.
+    /// </summary>
+    public static Vector2 screenCentre = new Vector2((Screen.width / 2), (Screen.height / 2));
 
+    /// <summary>
+    /// Adds a given value to both the X and Y of a Vector2.
+    /// </summary>
+    /// <param name="_vector2"></param>
+    /// <param name="_value"></param>
+    /// <returns></returns>
     public static Vector2 AddedVector2(Vector2 _vector2, float _value)
     {
       Vector2 _addedVector2 = new Vector2(_vector2.x + _value, _vector2.y + _value);
       return _addedVector2;
     }
+    /// <summary>
+    /// Adds a given value to the X and a given value to the Y of a Vector2.
+    /// </summary>
+    /// <param name="_vector2"></param>
+    /// <param name="_valueX"></param>
+    /// <param name="_valueY"></param>
+    /// <returns></returns>
     public static Vector2 SplitAddedVector2(Vector2 _vector2, float _valueX, float _valueY)
     {
       Vector2 _splitAddedVector2 = new Vector2(_vector2.x + _valueX, _vector2.y + _valueY);
       return _splitAddedVector2;
     }
+    /// <summary>
+    /// Multiplies a given value to both the X and Y of a Vector2.
+    /// </summary>
+    /// <param name="_vector2"></param>
+    /// <param name="_value"></param>
+    /// <returns></returns>
     public static Vector2 MultipliedVector2(Vector2 _vector2, float _value)
     {
       Vector2 _addedVector2 = new Vector2(_vector2.x * _value, _vector2.y * _value);
       return _addedVector2;
     }
+    /// <summary>
+    /// Multiplies a given value to the X and a given value to the Y of a Vector2.
+    /// </summary>
+    /// <param name="_vector2"></param>
+    /// <param name="_valueX"></param>
+    /// <param name="_valueY"></param>
+    /// <returns></returns>
     public static Vector2 SplitMultipliedVector2(Vector2 _vector2, float _valueX, float _valueY)
     {
       Vector2 _splitAddedVector2 = new Vector2(_vector2.x * _valueX, _vector2.y * _valueY);
       return _splitAddedVector2;
     }
-
+    /// <summary>
+    /// Adds a given value to both the X, Y and Z of a Vector3.
+    /// </summary>
+    /// <param name="_vector3"></param>
+    /// <param name="_value"></param>
+    /// <returns></returns>
     public static Vector3 AddedVector3(Vector3 _vector3, float _value)
     {
       Vector3 _addedVector3 = new Vector3(_vector3.x + _value, _vector3.y + _value, _vector3.z + _value);
       return _addedVector3;
     }
+    /// <summary>
+    /// Adds a given value to the X, a given value to the Y, and a given value to the Z of a Vector3.
+    /// </summary>
+    /// <param name="_vector3"></param>
+    /// <param name="_valueX"></param>
+    /// <param name="_valueY"></param>
+    /// <param name="_valueZ"></param>
+    /// <returns></returns>
     public static Vector3 SplitAddedVector3(Vector3 _vector3, float _valueX, float _valueY, float _valueZ)
     {
       Vector3 _splitAddedVector3 = new Vector3(_vector3.x + _valueX, _vector3.y + _valueY, _vector3.z + _valueZ);
       return _splitAddedVector3;
     }
+    /// <summary>
+    /// Multiples a given value to both the X, Y and Z of a Vector3.
+    /// </summary>
+    /// <param name="_vector3"></param>
+    /// <param name="_value"></param>
+    /// <returns></returns>
     public static Vector3 MultipliedVector3(Vector3 _vector3, float _value)
     {
       Vector3 _addedVector3 = new Vector3(_vector3.x * _value, _vector3.y * _value, _vector3.z * _value);
       return _addedVector3;
     }
+    /// <summary>
+    /// Multiplies a given value to the X, a given value to the Y, and a given value to the Z of a Vector3.
+    /// </summary>
+    /// <param name="_vector3"></param>
+    /// <param name="_valueX"></param>
+    /// <param name="_valueY"></param>
+    /// <param name="_valueZ"></param>
+    /// <returns></returns>
     public static Vector3 SplitMultipliedVector3(Vector3 _vector3, float _valueX, float _valueY, float _valueZ)
     {
       Vector3 _splitAddedVector3 = new Vector3(_vector3.x * _valueX, _vector3.y * _valueY, _vector3.z * _valueZ);
       return _splitAddedVector3;
     }
+
+    /// <summary>
+    /// Adds the X, Y and Z of one Vector3 to the X, Y and Z of another Vector3.
+    /// </summary>
+    /// <param name="_v1"></param>
+    /// <param name="_v2"></param>
+    /// <returns></returns>
     public static Vector3 CombinedVector3(Vector3 _v1, Vector3 _v2)
     {
       Vector3 _addedVector3 = new Vector3(_v1.x + _v2.x, _v1.y + _v2.y, _v1.z + _v2.z);
       return _addedVector3;
     }
+    /// <summary>
+    /// Mulitplies the X, Y and Z of one Vector3 to the X, Y and Z of another Vector3.
+    /// </summary>
+    /// <param name="_v1"></param>
+    /// <param name="_v2"></param>
+    /// <returns></returns>
     public static Vector3 MultiplyCombinedVector3(Vector3 _v1, Vector3 _v2)
     {
       Vector3 _addedVector3 = new Vector3(_v1.x * _v2.x, _v1.y * _v2.y, _v1.z * _v2.z);
       return _addedVector3;
     }
 
+    /// <summary>
+    /// Divides one int by another and returns a float.
+    /// </summary>
+    /// <param name="_a"></param>
+    /// <param name="_b"></param>
+    /// <returns></returns>
     public static float DivideInts(int _a, int _b)
     {
       return ((float)_a / (float)_b);
