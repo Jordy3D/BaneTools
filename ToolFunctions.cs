@@ -141,7 +141,7 @@ namespace BT
     public static bool VewNotObstructed(Vector4 objectBounds, Transform _start, Transform _target, bool _debug)
     {
       //Stores the visibility checks
-      Vector4 clearFlags = new Vector4(0,0,0,0);
+      Vector4 clearFlags = new Vector4(0, 0, 0, 0);
 
       //Adds the offsets provided in the Inspector to reach each side.
       Vector3 leftSide = BaneMath.SplitAddedVector3(_start.position, +objectBounds.x, 0, 0);
