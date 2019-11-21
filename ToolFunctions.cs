@@ -382,11 +382,7 @@ namespace BT
     /// <returns></returns>
     public static bool NumberWithinRange(float _value, float _start, float _end)
     {
-      if (_value >= _start && _value <= _end)
-      {
-        return true;
-      }
-      return false;
+      return _value >= _start && _value <= _end;
     }
   }
 }

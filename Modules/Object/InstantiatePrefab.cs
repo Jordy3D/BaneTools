@@ -38,4 +38,18 @@ public class InstantiatePrefab : MonoBehaviour
       p.transform.localScale = new Vector3(1, 1, 1);
     }
   }
+
+  public void InstantiateObjectAsChild()
+  {
+    caster = this.transform;
+
+    for (int i = 0; i < prefabs.Length; i++)
+    {
+      GameObject p = Instantiate(prefabs[i]);
+
+      p.transform.position = caster.position;
+      p.transform.localScale = new Vector3(1, 1, 1);
+      p.transform.SetParent(caster);
+    }
+  }
 }

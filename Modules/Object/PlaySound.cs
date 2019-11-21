@@ -27,6 +27,7 @@ public class PlaySound : MonoBehaviour
     CheckSources();
 
     AudioClip clip = clips[Random.Range(0, clips.Length - 1)];
+    source.clip = clip;
     source.PlayOneShot(clip);
   }
 
