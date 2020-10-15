@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -108,6 +109,16 @@ namespace BT
       }
       return false;
     }
+
+    public static float Distance(this Transform _pointA, Transform _pointB)
+    {
+      return Vector3.Distance(_pointA.position, _pointB.position);
+    }
+
+    public static Vector3 Direction(this Transform _pointA, Transform _pointB)
+    {
+      return (_pointB.position - _pointA.position).normalized;
+    }
     #endregion
 
     #region Transforms
@@ -130,6 +141,15 @@ namespace BT
     public static float Tilt(this Transform _object, Vector3 _referenceAxis, Vector3 _targetAxis)
     {
       return Vector3.Dot(_referenceAxis, _targetAxis);
+    }
+
+    public static Transform Clear(this Transform transform)
+    {
+      foreach (Transform child in transform)
+      {
+        GameObject.Destroy(child.gameObject);
+      }
+      return transform;
     }
 
     #endregion
@@ -191,6 +211,13 @@ namespace BT
     {
       RaycastHit hit;
       Physics.Raycast(_start.position, _dir, out hit, _dist);
+      return hit;
+    }
+
+    public static RaycastHit SphereForward(this Transform _start, float _radius = 1, float _dist = 100)
+    {
+      RaycastHit hit;
+      Physics.SphereCast(_start.position, _radius, _start.forward, out hit, _dist);
       return hit;
     }
 
@@ -326,6 +353,7 @@ namespace BT
     }
     #endregion
   }
+
   public enum Direction
   {
     Forward = 0,

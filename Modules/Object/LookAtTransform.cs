@@ -12,28 +12,32 @@ public class LookAtTransform : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
-    if (smoothFollow)
+    if (target)
     {
-      Quaternion targetRot = Quaternion.LookRotation(
-                                         new Vector3(followXPos ? target.position.x : transform.position.x,
-                                                     followYPos ? target.position.y : transform.position.y,
-                                                     followZPos ? target.position.z : transform.position.z)
-                                                     - transform.position);
+      if (smoothFollow)
+      {
+        Quaternion targetRot = Quaternion.LookRotation(
+                                           new Vector3(followXPos ? target.position.x : transform.position.x,
+                                                       followYPos ? target.position.y : transform.position.y,
+                                                       followZPos ? target.position.z : transform.position.z)
+                                                       - transform.position);
+        transform.localRotation = Quaternion.Slerp(transform.rotation, targetRot * Quaternion.Euler(rotationOffset), Time.deltaTime * lookSpeed);
 
-      transform.localRotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * lookSpeed);
-    }
-    else
-    {
-      //transform.localRotation = 
-      //  Quaternion.LookRotation(new Vector3(followXPos ? target.position.x : transform.position.x,
-      //                                      followYPos ? target.position.y : transform.position.y,
-      //                                      followZPos ? target.position.z : transform.position.z)) 
-      //                                      * Quaternion.Euler(rotationOffset);
+        //transform.localRotation = newRot * Quaternion.Euler(rotationOffset);
+      }
+      else
+      {
+        //transform.localRotation = 
+        //  Quaternion.LookRotation(new Vector3(followXPos ? target.position.x : transform.position.x,
+        //                                      followYPos ? target.position.y : transform.position.y,
+        //                                      followZPos ? target.position.z : transform.position.z)) 
+        //                                      * Quaternion.Euler(rotationOffset);
 
 
-      transform.LookAt(new Vector3(followXPos ? target.position.x : transform.position.x,
-                                   followYPos ? target.position.y : transform.position.y,
-                                   followZPos ? target.position.z : transform.position.z));
+        transform.LookAt(new Vector3(followXPos ? target.position.x : transform.position.x,
+                                     followYPos ? target.position.y : transform.position.y,
+                                     followZPos ? target.position.z : transform.position.z));
+      }
     }
   }
 }

@@ -385,4 +385,27 @@ namespace BT
       return _value >= _start && _value <= _end;
     }
   }
+
+  public static class BTC
+  {
+    public static Vector3 ColourToPercentage(Color _col)
+    {
+      return BaneMath.MultipliedVector3(ColourToVector3(_col), 100);
+    }
+
+    public static Vector3 ColourToVector3(Color _col)
+    {
+      return new Vector3(_col.r, _col.g, _col.b);
+    }
+
+    public static Color ColourFromVector3(Vector3 _col)
+    {
+      Color newColour = Color.black;
+      newColour.r = _col.x;
+      newColour.g = _col.y;
+      newColour.b = _col.z;
+      newColour.a = 1;
+      return newColour;
+    }
+  }
 }
