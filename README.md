@@ -18,6 +18,7 @@ Then, when you want to call a function from BaneExtensions.cs, use:
 ```cs
 BaneMath.FunctionHere();
 BaneRays.FunctionHere();
+//etc...
 ```
 There's also many extensions you can try, such as:
 ```cs
