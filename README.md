@@ -14,9 +14,8 @@ If you have any suggestions or fixes, feel free to share em however you see fit.
 ### Usage
 `using BT;`
 
-Then, when you want to call a function from ToolFunctions.cs, use:
+Then, when you want to call a function from BaneExtensions.cs, use:
 ```cs
-BaneTools.FunctionHere();
 BaneMath.FunctionHere();
 BaneRays.FunctionHere();
 ```
