@@ -3,23 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[AddComponentMenu("BaneTools/Cheats/Cheat")]
-public class Cheat : MonoBehaviour
+namespace BT
 {
-  public KeyCode[] sequence;
-  private int sequenceIndex;
-
-  public UnityEvent onSuccess;
-  private void Update()
+  [AddComponentMenu("BaneTools/Cheats/Cheat")]
+  public class Cheat : MonoBehaviour
   {
-    if (Input.GetKeyDown(sequence[sequenceIndex]))
+    public KeyCode[] sequence;
+    private int sequenceIndex;
+
+    public UnityEvent onSuccess;
+    private void Update()
     {
-      if (++sequenceIndex == sequence.Length)
+      if (Input.GetKeyDown(sequence[sequenceIndex]))
       {
-        sequenceIndex = 0;
-        onSuccess.Invoke();
+        if (++sequenceIndex == sequence.Length)
+        {
+          sequenceIndex = 0;
+          onSuccess.Invoke();
+        }
       }
+      else if (Input.anyKeyDown)
+        sequenceIndex = 0;
     }
-    else if (Input.anyKeyDown) sequenceIndex = 0;
-  }
+  } 
 }

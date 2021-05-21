@@ -3,34 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class SimpleAgent : MonoBehaviour
+namespace BT
 {
-  public Transform target;
-  public NavMeshAgent agent;
-  // Start is called before the first frame update
-  void Start()
+  public class SimpleAgent : MonoBehaviour
   {
-    agent = GetComponent<NavMeshAgent>();
-  }
+    public Transform target;
+    public NavMeshAgent agent;
 
-  // Update is called once per frame
-  public virtual void Update()
-  {
+    void Start() => agent = GetComponent<NavMeshAgent>();
 
-  }
+    private void Update() => SetTarget(target);
 
-  public void SetTarget(Transform _target)
-  {
-    agent.SetDestination(_target.position);
-  }
-
-  //public virtual void StopAgent()
-  //{
-  //  agent.enabled = false;
-  //}
-
-  //public virtual void StartAgent()
-  //{
-  //  agent.enabled = true;
-  //}
+    public void SetTarget(Transform _target) => agent.SetDestination(_target.position);
+    public virtual void StopAgent() => agent.enabled = false;
+    public virtual void StartAgent() => agent.enabled = true;
+  } 
 }

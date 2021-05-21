@@ -3,23 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-using NaughtyAttributes;
-
-[AddComponentMenu("BaneTools/Triggers/On Trigger Event")]
+[AddComponentMenu("BaneTools/Triggers/Trigger Event Handler")]
 public class OnTriggerEvent : MonoBehaviour
 {
-  [BoxGroup("Trigger Options")]
-  public bool destroyOnEnter = false, destroyOnExit = false, notTag = false, isEnabled = true, triggerOnce = false, hasScript = false, repeatDelay = false;
+  [Header("Trigger Options")]
+  public bool destroyOnEnter = false;
+  public bool destroyOnExit = false, notTag = false, isEnabled = true, triggerOnce = false, hasScript = false, repeatDelay = false;
 
-  [ShowIf("hasScript"), BoxGroup("Trigger Options")]
   public string scriptName;
-
-  [ShowIf("repeatDelay"), BoxGroup("Trigger Options")]
   public float repeatDelayTime;
 
-  [Tag, BoxGroup("Trigger Events")]
+  [Header("Trigger Events")]
   public string hitTag;
-  [BoxGroup("Trigger Events")]
   public UnityEvent onEnter, onStay, onExit;
 
   public Collider otherCollider;
@@ -35,43 +30,27 @@ public class OnTriggerEvent : MonoBehaviour
   {
     Collider col = GetComponent<Collider>();
     if (col)
-    {
       col.isTrigger = true;
-    }
     else
-    {
       Debug.LogWarning(string.Format("The GameObject {0} does not have a collider. This will not work with trigger events.", name));
-    }
   }
 
-  public virtual void Start()
-  {
-    cols = GetComponents<Collider>();
-  }
+  public virtual void Start() => cols = GetComponents<Collider>();
 
   public virtual void OnTriggerEnter(Collider other)
   {
-    if (enabled && canBeTriggered && !enterDelayed)
+    if (!enabled || !canBeTriggered || !enterDelayed) return;
+
+    if (hasScript)
     {
-      if (hasScript)
-      {
-        scripts = other.GetComponents<MonoBehaviour>();
-        foreach (MonoBehaviour mono in scripts)
-        {
-          if (mono?.GetType().Name == scriptName)
-          {
-            OnEnter(other);
-          }
-        }
-      }
-      else
-      {
-        if (other.tag == hitTag || hitTag == "")
-        {
+      scripts = other.GetComponents<MonoBehaviour>();
+
+      foreach (MonoBehaviour mono in scripts)
+        if (mono.GetType().Name == scriptName)
           OnEnter(other);
-        }
-      }
     }
+    else if (other.tag == hitTag || hitTag == "")
+      OnEnter(other);
   }
 
   void OnEnter(Collider other)
@@ -94,27 +73,17 @@ public class OnTriggerEvent : MonoBehaviour
 
   public virtual void OnTriggerStay(Collider other)
   {
-    if (enabled && canBeTriggered && !stayDelayed)
-    {
-      if (hasScript)
+    if (!enabled || !canBeTriggered || !enterDelayed) return;
+
+    if (hasScript)
       {
         scripts = other.GetComponents<MonoBehaviour>();
         foreach (MonoBehaviour mono in scripts)
-        {
-          if (mono?.GetType().Name == scriptName)
-          {
+          if (mono.GetType().Name == scriptName)
             OnStay(other);
-          }
-        }
       }
-      else
-      {
-        if (other.tag == hitTag || (!hasScript && hitTag == ""))
-        {
-          OnStay(other);
-        }
-      }
-    }
+      else if (other.tag == hitTag || (!hasScript && hitTag == ""))
+        OnStay(other);
   }
 
   void OnStay(Collider other)
@@ -134,27 +103,17 @@ public class OnTriggerEvent : MonoBehaviour
 
   public virtual void OnTriggerExit(Collider other)
   {
-    if (enabled && canBeTriggered && !exitDelayed)
-    {
-      if (hasScript)
+    if (!enabled || !canBeTriggered || !enterDelayed) return;
+
+    if (hasScript)
       {
         scripts = other.GetComponents<MonoBehaviour>();
         foreach (MonoBehaviour mono in scripts)
-        {
-          if (mono?.GetType().Name == scriptName)
-          {
+          if (mono.GetType().Name == scriptName)
             OnExit(other);
-          }
-        }
       }
-      else
-      {
-        if (other.tag == hitTag || hitTag == "")
-        {
-          OnExit(other);
-        }
-      }
-    }
+      else if (other.tag == hitTag || hitTag == "")
+        OnExit(other);
   }
 
   void OnExit(Collider other)
@@ -178,17 +137,13 @@ public class OnTriggerEvent : MonoBehaviour
   public virtual void DisableTriggers()
   {
     foreach (var col in cols)
-    {
       col.enabled = false;
-    }
   }
 
   public virtual void EnableTriggers()
   {
     foreach (var col in cols)
-    {
       col.enabled = true;
-    }
   }
 
   public IEnumerator DelayRepeatEnter(float _delay)

@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-using NaughtyAttributes;
-
 public class OnTriggerEvent2D : MonoBehaviour
 {
-  [Tag]
-  [BoxGroup("Trigger Events")]
+  [Header("Trigger Options")]
   public string hitTag;
-  [BoxGroup("Trigger Events")]
+  [Header("Trigger Events")]
   public UnityEvent onEnter, onStay, onExit;
 
   public Collider2D otherCollider;
@@ -19,13 +16,9 @@ public class OnTriggerEvent2D : MonoBehaviour
   {
     Collider2D col = GetComponent<Collider2D>();
     if (col)
-    {
       col.isTrigger = true;
-    }
     else
-    {
       Debug.LogWarning(string.Format("The GameObject {0} does not have a collider. This will not work with trigger events.", name));
-    }
   }
 
   public virtual void OnTriggerEnter2D(Collider2D other)

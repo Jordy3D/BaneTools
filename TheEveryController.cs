@@ -3,46 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-using NaughtyAttributes;
-
-public class TheEveryController : MonoBehaviour
+namespace BT
 {
-  [ReorderableList] public List<KeyCode> keys;
-  [ReorderableList] public List<UnityEvent> events;
-
-  // Start is called before the first frame update
-  void Start()
+  public class TheEveryController : MonoBehaviour
   {
+    public List<KeyCode> keys;
+    public List<UnityEvent> events;
 
-  }
-
-  // Update is called once per frame
-  void Update()
-  {
-    foreach (KeyCode kcode in KeyCode.GetValues(typeof(KeyCode)))
+    void Update()
     {
-      if (Input.GetKeyDown(kcode))
+      foreach (KeyCode kcode in KeyCode.GetValues(typeof(KeyCode)))
       {
-        if (keys.Contains(kcode))
-        {
-          events[keys.IndexOf(kcode)].Invoke();
-        }
+        if (Input.GetKeyDown(kcode))
+          if (keys.Contains(kcode))
+            events[keys.IndexOf(kcode)].Invoke();
       }
     }
+
+    public void TestAction(string output) => print(output);
   }
 
-  public void Action1()
-  {
-    print("A");
-  }
-
-  public void Action2()
-  {
-    print("1");
-  }
-
-  public void Action3()
-  {
-    print("?");
-  }
 }

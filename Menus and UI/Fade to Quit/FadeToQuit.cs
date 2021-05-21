@@ -13,22 +13,16 @@ public class FadeToQuit : MonoBehaviour
 
   public Image dark;
 
-  // Use this for initialization
   void Start()
   {
     if (gameObject.name == "QuitFadeObject")
-    {
       dark = GetComponent<Image>();
-    }
   }
 
-  // Update is called once per frame
   void Update()
   {
     if (Input.GetKeyDown(quitKey))
-    {
       timer = 0;
-    }
 
     if (Input.GetKey(quitKey))
     {
@@ -40,7 +34,7 @@ public class FadeToQuit : MonoBehaviour
 
       if (timer > timeToQuit)
       {
-        print(BaneTools.ColorString("Quit Successfully", BaneTools.Color255(255, 0, 0)));
+        print(BaneStrings.ColorString("Quit Successfully", Color.red));
         Application.Quit();
       }
     }
