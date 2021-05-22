@@ -5,8 +5,7 @@
   "unity": "2019.2",
   "description": "A collection of things that tend to help out.",
   "keywords": [ "modules", "bane" ],
-  "type": "Support"
-  "category": "Support",
+  "category": "",
   "dependencies": {
   }
 }
