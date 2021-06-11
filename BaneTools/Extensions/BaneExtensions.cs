@@ -115,6 +115,40 @@ namespace BT
 
       return _array;
     }
+
+    /// <summary>
+    /// Converts from a Vector3 array to an array of Ints
+    /// </summary>
+    /// <param name="_array"></param>
+    /// <returns></returns>
+    public static int[] Vector3ToIntArray(Vector3[] _array) {
+      List<int> output = new List<int>();
+
+      for (int i = 0; i < _array.Length; i++) {
+        output.Add((int)_array[i].x);
+        output.Add((int)_array[i].y);
+        output.Add((int)_array[i].z);
+      }
+
+      return output.ToArray();
+    }
+
+    /// <summary>
+    /// Converts from a Vector3 array to an array of Floats
+    /// </summary>
+    /// <param name="_array"></param>
+    /// <returns></returns>
+    public static float[] Vector3ToFloatArray(Vector3[] _array) {
+      List<float> output = new List<float>();
+
+      for (int i = 0; i < _array.Length; i++) {
+        output.Add(_array[i].x);
+        output.Add(_array[i].y);
+        output.Add(_array[i].z);
+      }
+
+      return output.ToArray();
+    }
   }
 
   public static class BaneTransform
@@ -244,12 +278,26 @@ namespace BT
     /// <returns></returns>
     public static Vector3 MidPoint(this Vector3 _pointA, Vector3 _pointB) => (_pointA + _pointB) / 2;
     /// <summary>
+    /// Returns the midpoint between two Vector3 values, at a given distance between the two points.
+    /// </summary>
+    /// <param name="_pointA"></param>
+    /// <param name="_pointB"></param>
+    /// <returns></returns>
+    public static Vector3 MidPoint(this Vector3 _pointA, Vector3 _pointB, float _taking = .5f) => Vector3.Lerp(_pointA, _pointB, _taking);
+    /// <summary>
     /// Returns the midpoint between two Vector2 values.
     /// </summary>
     /// <param name="_pointA"></param>
     /// <param name="_pointB"></param>
     /// <returns></returns>
     public static Vector2 MidPoint(this Vector2 _pointA, Vector2 _pointB) => (_pointA + _pointB) / 2;
+    /// <summary>
+    /// Returns the midpoint between two Vector2 values, at a given distance between the two points.
+    /// </summary>
+    /// <param name="_pointA"></param>
+    /// <param name="_pointB"></param>
+    /// <returns></returns>
+    public static Vector2 MidPoint(this Vector2 _pointA, Vector2 _pointB, float _taking = .5f) => Vector2.Lerp(_pointA, _pointB, _taking);
     /// <summary>
     /// Returns the position midpoint between two Transform values.
     /// </summary>
@@ -694,10 +742,10 @@ namespace BT
 
         Vector3 newRot = (Quaternion.LookRotation(direction) *
           Quaternion.Euler(0, rotVal, 0) *
-          new Vector3(Mathf.RoundToInt(direction.x), 0, 1));
+          new Vector3(0, 0, 1));
         Vector3 prevRot = (Quaternion.LookRotation(direction) *
           Quaternion.Euler(0, nextRotVal, 0) *
-          new Vector3(Mathf.RoundToInt(direction.x), 0, 1));
+          new Vector3(0, 0, 1));
 
         Gizmos.DrawLine(pos + newRot * radius, pos + prevRot * radius);
       }
